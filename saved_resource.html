@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!-- saved from url=(0012)about:srcdoc -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Nexus: Unlock Your Cosmic Code</title>
+    <style>
+        body {
+            background: #000 url('https://source.unsplash.com/random/1920x1080/?stars') no-repeat center/cover;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 80% 80%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 10% 90%, rgba(255,255,255,0.5), transparent),
+                radial-gradient(1px 1px at 90% 50%, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 50% 10%, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 30% 60%, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 15% 50%, rgba(255,255,255,0.5), transparent);
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.6;
+            animation: twinkle 3s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.05); }
+        }
+        form {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+            width: 100%;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+        h1 {
+            margin-bottom: 0.2rem;
+            color: #8B5CF6;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            font-size: 1.2em;
+            color: #A78BFA;
+        }
+        input {
+            width: 100%;
+            margin: 0.8rem 0;
+            padding: 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #8B5CF6;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            box-sizing: border-box;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        button {
+            background: #8B5CF6;
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #7C3AED;
+        }
+        .output {
+            margin-top: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+            max-width: 600px;
+            width: 100%;
+        }
+        .output.show {
+            opacity: 1;
+        }
+        .planet-info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1em;
+            flex-wrap: wrap;
+        }
+        .planet {
+            text-align: center;
+            margin: 0.5em;
+        }
+        .orb {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 0.5em;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .sun { background: radial-gradient(circle, gold, orange); }
+        .moon { background: radial-gradient(circle, silver, #D3D3D3); }
+        .rising { background: radial-gradient(circle, #9370DB, #8B5CF6); }
+        .sign {
+            font-weight: bold;
+            color: #8B5CF6;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #8B5CF6; }
+            50% { box-shadow: 0 0 20px #8B5CF6; }
+            100% { box-shadow: 0 0 5px #8B5CF6; }
+        }
+        .output.show .orb {
+            animation: glow 2s infinite;
+        }
+        #debug {
+            font-size: 0.8em;
+            color: #ccc;
+            margin-top: 1rem;
+        }
+        .personality-section {
+            margin-top: 2rem;
+            text-align: left;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .personality-item {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid #8B5CF6;
+        }
+        .personality-item h3 {
+            color: #8B5CF6;
+            margin-top: 0;
+        }
+        .personality-item p {
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        .conclusion {
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 2px solid #8B5CF6;
+            box-shadow: 0 4px 16px rgba(139, 92, 246, 0.2);
+        }
+        .conclusion h3 {
+            color: #8B5CF6;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .conclusion p {
+            font-style: italic;
+            opacity: 0.95;
+            line-height: 1.5;
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="margin: 0px;">
+    <form id="astroForm">
+        <h1>Stellar Nexus</h1>
+        <p class="subtitle">Unlock Your Cosmic Code</p>
+        <input type="date" id="birthDate">
+        <input type="time" id="birthTime" step="60">
+        <input type="text" id="birthPlace" placeholder="City, Country">
+        <button type="button" onclick="handleSubmit()">Calculate Birth Chart</button>
+        <div id="output" class="output show">
+            <div class="planet-info">
+                <div class="planet">
+                    <div class="orb sun"></div>
+                    <div>Sun: <span id="sunSign" class="sign">Gemini</span></div>
+                </div>
+                <div class="planet">
+                    <div class="orb moon"></div>
+                    <div>Moon: <span id="moonSign" class="sign">Aquarius</span></div>
+                </div>
+                <div class="planet">
+                    <div class="orb rising"></div>
+                    <div>Rising: <span id="risingSign" class="sign">Scorpio</span></div>
+                </div>
+            </div>
+            <div id="personality" class="personality-section">
+                <div class="personality-item">
+                    <h3>Sun in Gemini: Your Core Identity</h3>
+                    <p>Gemini Suns are curious social butterflies, adaptable chameleons with quick wit and a thirst for variety, effortlessly communicating across diverse crowds. Versatile and intellectually driven, they blend into any scene, but inconsistency and superficiality can scatter focus. Strengths: innovation and sociability; weaknesses: indecision and restlessness.</p>
+                </div>
+                <div class="personality-item">
+                    <h3>Moon in Aquarius: Your Emotional World</h3>
+                    <p>Aquarius Moon intellectualizes with logical detachment, needing space, unconventional experiences, and greater-good pursuits to unlock a hidden softer side. Creative yet aloof, they recharge eccentrically, but over-logic starves the heart. Blend your air's intellect with watery intuition for balanced rebellion.</p>
+                </div>
+                <div class="personality-item">
+                    <h3>Rising in Scorpio: Your Outer Aura</h3>
+                    <p>Scorpio Rising casts sultry, magnetic allure that's enigmatic and commanding, drawing attention with quiet intensity and dark humor. Intense and sexy, they hold rooms captive, though overload or aloofness intimidates. Your enigma captivates—reveal layers wisely to forge unbreakable ties.</p>
+                </div>
+            </div>
+            <div id="conclusion" class="conclusion">
+                <h3>Celestial Synthesis: Who You Are</h3>
+                <p>In the grand cosmic dance, your Gemini Sun, Aquarius Moon, and Scorpio Rising weave air witty explorer infused with innovative rebel depths and intense transformer presence. This trinity crafts a soul who navigates life with resilient intuition, seeking growth through balanced action and connection. Embrace your unique stellar signature to manifest profound purpose.</p>
+            </div>
+        </div>
+        <div id="debug"><p>Debug: Success! Your Sun is Gemini. (Check console for more.)</p></div>
+    </form>
+
+    <script>
+        const descriptions = {
+            Aries: {
+                sun: "As the first sign of the zodiac, Aries Suns are fearless self-starters, bold, energetic, and natural leaders with a pioneering spirit. They thrive on action, initiative, and new challenges, often athletic and decisive, but their impulsiveness can lead to recklessness or unfinished projects. Strengths include courage and enthusiasm; weaknesses involve impatience and a tendency to dominate.",
+                moon: "Aries Moon brings intense, immediate emotions that flare up passionately and honestly, like emotional firecrackers unafraid to express feelings directly. They react quickly with big energy and forgive fast, but volatility and overreactivity can cause relational friction. Key strengths are honesty and quick responsiveness; watch for impatience in processing deeper hurts.",
+                rising: "Aries Rising projects confident, assertive energy that's palpable and motivating, often seen as the initiator in social settings with a competitive flair. They inspire others to strive for the top through their dynamic presence, though perceived dominance or aggression might intimidate. Embrace your leadership while softening edges for harmony."
+            },
+            Taurus: {
+                sun: "Taurus Suns are steady, reliable earth signs deeply connected to the material world, valuing stability, comfort, and sensual pleasures with unwavering determination. Loyal and focused, they stand their ground patiently, but stubbornness and resistance to change can stall growth. Strengths: persistence and warmth; weaknesses: complacency and over-attachment to routines.",
+                moon: "Taurus Moon seeks emotional security through consistency, routine, and physical affection, processing feelings slowly and steadily with calm composure. They're easygoing and charming, loyal to a fault, but grudges linger and pressure is needed to stir their steady tides. Nurture your patience while embracing flexibility for emotional flow.",
+                rising: "Taurus Rising exudes a grounded, practical charm ruled by Venus, alluring others with social graces, poise, and an appreciation for beauty. Dependable and graceful, they draw people in effortlessly, though over-indulgence or stubborn first impressions may surface. Your stability is magnetic—balance it with openness to novelty."
+            },
+            Gemini: {
+                sun: "Gemini Suns are curious social butterflies, adaptable chameleons with quick wit and a thirst for variety, effortlessly communicating across diverse crowds. Versatile and intellectually driven, they blend into any scene, but inconsistency and superficiality can scatter focus. Strengths: innovation and sociability; weaknesses: indecision and restlessness.",
+                moon: "Gemini Moon intellectualizes emotions through talk and analysis, with mercurial moods that shift rapidly and crave mental stimulation. Expressive and playful, they resolve feelings via brainstorming, but emotional detachment or superficiality may hinder depth. Lean into your curiosity for genuine connections beyond the surface.",
+                rising: "Gemini Rising, ruled by Mercury, appears energetic, versatile, and creatively adaptable, evolving with the room's vibe like a friendly intellectual. Talkative and innovative, they charm with wit, though flightiness might seem erratic. Your flexibility inspires—ground it with consistent presence for lasting impact."
+            },
+            Cancer: {
+                sun: "Cancer Suns are intuitive nurturers, deeply emotional and family-oriented, ambitious in building security while protecting their soft core with moodiness. Empathetic and driven, they prioritize home and comfort, but overprotectiveness can isolate. Strengths: compassion and resilience; weaknesses: emotional overwhelm and clinginess.",
+                moon: "Cancer Moon amplifies psychic sensitivity and empathy, absorbing others' feelings into a rich, complex inner world that's tender and home-loving. Highly intuitive, they thrive on self-care and close bonds, but boundary issues lead to mood swings. Honor your depth by setting gentle limits to avoid absorption.",
+                rising: "Cancer Rising softens impressions with kind, joyful compassion, exuding warmth and approachability that builds trust quickly. Protective and relatable, they share heartfelt vibes, though oversensitivity might cloud judgment. Your nurturing aura draws souls—protect your energy with loving discernment."
+            },
+            Leo: {
+                sun: "Leo Suns radiate warm, bubbly confidence as natural entertainers ruled by the Sun, charismatic leaders generous with their dramatic flair and spotlight shine. Extroverted and creative, they inspire loyalty, but arrogance or attention-seeking can dim connections. Strengths: leadership and generosity; weaknesses: ego-driven drama.",
+                moon: "Leo Moon infuses emotions with magnetic warmth and vulnerability, thriving on admiration, romance, and expressive parties while guarding a tender heart. Hypnotizing and relatable, they express big feelings optimistically, but dramatic tendencies arise from unmet praise. Celebrate your inner lion with balanced self-love.",
+                rising: "Leo Rising glows with powerful, fun-loving charisma, commanding rooms as theatrical life-of-the-party types who ooze enthusiasm and style. Inspirational and playful, they draw eyes effortlessly, though showiness might overshadow subtlety. Your radiance lights paths—share the stage for deeper bonds."
+            },
+            Virgo: {
+                sun: "Virgo Suns are diligent analysts with a practical eye for detail, striving for perfection through service, health, and improvement in all pursuits. Reliable and efficient, they plan meticulously, but self-criticism and perfectionism breed anxiety. Strengths: precision and helpfulness; weaknesses: over-analysis and nitpicking.",
+                moon: "Virgo Moon approaches emotions logically with calm reasoning, nurturing through routines and problem-solving while appearing reserved yet composed. Useful and organized, they process feelings analytically, but emotional reserve or over-criticism stifles vulnerability. Integrate heart with mind for holistic healing.",
+                rising: "Virgo Rising presents as agreeable, helpful minimalists—reliable, courteous, and detail-oriented with a substance-over-flash vibe. Valued for dependability, they charm quietly, though meticulousness can seem overly critical. Your quiet competence builds empires—loosen the reins for joyful imperfection."
+            },
+            Libra: {
+                sun: "Libra Suns are diplomatic socialites seeking harmony, justice, and beauty through stylish connections and artistic talents, succeeding with balanced charm. Relational and creative, they foster peace, but indecisiveness delays bold moves. Strengths: empathy and aesthetics; weaknesses: people-pleasing and superficiality.",
+                moon: "Libra Moon prioritizes emotional partnerships and fairness, flirtatious and empathetic in quests for equilibrium, where harmony stabilizes their relational core. Charming yet drama-prone, they value others' views deeply, but instability without balance breeds unease. Cultivate inner peace to mirror outward grace.",
+                rising: "Libra Rising embodies harmonious grace as fashion-forward peacemakers with an eye for beauty, enchanting through fairness and sociability. Balanced and flirtatious, they attune aesthetically, though over-reliance on approval dilutes authenticity. Your elegance unites—trust your innate fairness above all."
+            },
+            Scorpio: {
+                sun: "Scorpio Suns delve into mystery with intense resilience, insightful and transformative, passionate about depths like the occult while guarding secrets jealously. Evolving and powerful, they command loyalty, but grudges and possessiveness poison trust. Strengths: depth and intuition; weaknesses: volatility and control.",
+                moon: "Scorpio Moon bottles profound emotions until explosive release, intuitive about shadows with loyal extremes and psychic undercurrents in a challenging lunar terrain. Passionate yet private, they bond deeply but struggle with trust, leading to relational intensity. Transform pain into power through vulnerable release.",
+                rising: "Scorpio Rising casts sultry, magnetic allure that's enigmatic and commanding, drawing attention with quiet intensity and dark humor. Intense and sexy, they hold rooms captive, though overload or aloofness intimidates. Your enigma captivates—reveal layers wisely to forge unbreakable ties."
+            },
+            Sagittarius: {
+                sun: "Sagittarius Suns are optimistic adventurers, philosophical free spirits with lucky, expansive horizons and blunt honesty that inspires growth. Independent and upbeat, they chase meaning globally, but restlessness and tactlessness wound unintentionally. Strengths: exploration and positivity; weaknesses: over-idealism and commitment-phobia.",
+                moon: "Sagittarius Moon uplifts with positive, soul-bonding freedom, emotionally fulfilled by exploration, new experiences, and meaningful connections that evade cages. Enthusiastic and open, they idealize bonds, but detachment arises from unmet wanderlust. Feed your archer's quest with grounded optimism.",
+                rising: "Sagittarius Rising bursts with jovial, spontaneous cheer, honest and enthusiastic wanderers who spin positives and plan adventures, making others feel lucky. Adaptable and direct, they inspire spins on life, though bluntness lacks tact. Your fire ignites journeys—temper arrows with empathy."
+            },
+            Capricorn: {
+                sun: "Capricorn Suns climb ambitiously with disciplined practicality, responsible high-achievers humorous in dry wit, patient and structured for long-term success. Mature and integral, they build legacies, but rigidity and workaholism block vulnerability. Strengths: determination and reliability; weaknesses: emotional guardedness.",
+                moon: "Capricorn Moon reserves feelings behind self-reliant maturity from early hardships, suppressing for practicality while craving secure commitments. Resilient and structured, they handle emotions with ambition, but guardedness stems from forced growth. Honor your mountain goat's climb with tender pauses.",
+                rising: "Capricorn Rising appears serious, competent executives—driven, mature, and beyond reproach, revealing warmth only to trusted few after proving diligence. Persevering and integral, they exceed expectations, though coldness seems aloof. Your steadfast peak commands respect—soften summits with shared vulnerability."
+            },
+            Aquarius: {
+                sun: "Aquarius Suns innovate as quirky humanitarians, progressive rebels with unique visions and community focus, marching to their own drum despite feeling like outsiders. Original and detached, they reform worlds, but unpredictability alienates. Strengths: vision and independence; weaknesses: emotional aloofness.",
+                moon: "Aquarius Moon intellectualizes with logical detachment, needing space, unconventional experiences, and greater-good pursuits to unlock a hidden softer side. Creative yet aloof, they recharge eccentrically, but over-logic starves the heart. Blend your air's intellect with watery intuition for balanced rebellion.",
+                rising: "Aquarius Rising vibes as cool, unconventional eccentrics—inspirational innovators friendly yet aloof, marching uniquely with bold ideas that challenge norms. Visionary and quirky, they spark change, though rebellion for its sake disrupts. Your electric aura revolutionizes—ground genius in compassionate connection."
+            },
+            Pisces: {
+                sun: "Pisces Suns dream intuitively between fantasy and reality, empathetic artists bridging spiritual realms with wise, old-soul compassion and rich imagination. Creative and boundary-fluid, they heal through magic, but escapism and indecisiveness dissolve resolve. Strengths: empathy and creativity; weaknesses: overwhelm and vagueness.",
+                moon: "Pisces Moon flows with psychic, fluid empathy, absorbing emotions compassionately while needing solitude to process imaginative clouds and advisory depths. Sensitive and romantic, they attune universally, but boundary dissolution leads to lostness. Anchor your oceanic soul with compassionate anchors.",
+                rising: "Pisces Rising effervesces dreamily as gentle, adaptable morphers, bright and compassionate, attuning to energies with artistic kindness that senses the room's pulse. Versatile and empathetic, they enchant softly, though impressionability blurs self. Your ethereal glow dissolves divides—set subtle sails for directed flow."
+            }
+        };
+
+        const combinedTraits = {
+            Aries: { element: 'Fire', quality: 'Cardinal', vibe: 'bold pioneer' },
+            Taurus: { element: 'Earth', quality: 'Fixed', vibe: 'steady sensualist' },
+            Gemini: { element: 'Air', quality: 'Mutable', vibe: 'witty explorer' },
+            Cancer: { element: 'Water', quality: 'Cardinal', vibe: 'nurturing guardian' },
+            Leo: { element: 'Fire', quality: 'Fixed', vibe: 'charismatic creator' },
+            Virgo: { element: 'Earth', quality: 'Mutable', vibe: 'analytical healer' },
+            Libra: { element: 'Air', quality: 'Cardinal', vibe: 'harmonious diplomat' },
+            Scorpio: { element: 'Water', quality: 'Fixed', vibe: 'intense transformer' },
+            Sagittarius: { element: 'Fire', quality: 'Mutable', vibe: 'optimistic adventurer' },
+            Capricorn: { element: 'Earth', quality: 'Cardinal', vibe: 'ambitious builder' },
+            Aquarius: { element: 'Air', quality: 'Fixed', vibe: 'innovative rebel' },
+            Pisces: { element: 'Water', quality: 'Mutable', vibe: 'empathetic dreamer' }
+        };
+
+        function generateConclusion(sunSign, moonSign, risingSign) {
+            const sunTrait = combinedTraits[sunSign] || { vibe: 'cosmic enigma' };
+            const moonTrait = combinedTraits[moonSign] || { vibe: 'lunar mystic' };
+            const risingTrait = combinedTraits[risingSign] || { vibe: 'stellar mask' };
+
+            // Simple synthesis: blend vibes and elements for a holistic summary
+            const elements = new Set([sunTrait.element, moonTrait.element, risingTrait.element]).size;
+            const dominantVibe = elements <= 2 ? `${sunTrait.element.toLowerCase()} ${sunTrait.vibe} infused with ${moonTrait.vibe} depths and ${risingTrait.vibe} presence` : `a dynamic blend of ${sunTrait.vibe}, ${moonTrait.vibe}, and ${risingTrait.vibe} energies`;
+            const holisticInsight = `This trinity crafts a soul who navigates life with resilient intuition, seeking growth through balanced action and connection. Embrace your unique stellar signature to manifest profound purpose.`;
+
+            return `In the grand cosmic dance, your ${sunSign} Sun, ${moonSign} Moon, and ${risingSign} Rising weave ${dominantVibe}. ${holisticInsight}`;
+        }
+
+        function handleSubmit() {
+            console.log('Button clicked!'); // Debug: Check if this logs
+
+            const date = document.getElementById('birthDate').value;
+            const time = document.getElementById('birthTime').value;
+            const place = document.getElementById('birthPlace').value;
+
+            console.log('Inputs:', { date, time, place }); // Debug
+
+            if (!date || !time || !place) {
+                alert('Please fill in all fields');
+                console.error('Missing fields');
+                return;
+            }
+
+            const birthDateStr = date + 'T' + time + ':00'; // Add seconds for full ISO
+            let birthDate;
+            try {
+                birthDate = new Date(birthDateStr);
+                console.log('Parsed date:', birthDate);
+            } catch (err) {
+                console.error('Date parse error:', err);
+                alert('Invalid date/time—try again.');
+                return;
+            }
+
+            if (isNaN(birthDate.getTime())) {
+                alert('Invalid date—pick a valid birth date.');
+                return;
+            }
+
+            const month = birthDate.getMonth() + 1;
+            const day = birthDate.getDate();
+            console.log('Month/Day:', { month, day });
+
+            let sunSign = 'Unknown';
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) sunSign = 'Aries';
+            else if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) sunSign = 'Taurus';
+            else if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) sunSign = 'Gemini';
+            else if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) sunSign = 'Cancer';
+            else if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) sunSign = 'Leo';
+            else if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) sunSign = 'Virgo';
+            else if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) sunSign = 'Libra';
+            else if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) sunSign = 'Scorpio';
+            else if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) sunSign = 'Sagittarius';
+            else if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) sunSign = 'Capricorn';
+            else if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) sunSign = 'Aquarius';
+            else if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) sunSign = 'Pisces';
+
+            const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
+            const moonSign = signs[Math.floor(Math.random() * 12)];
+            const risingSign = signs[Math.floor(Math.random() * 12)];
+
+            console.log('Calculated signs:', { sunSign, moonSign, risingSign });
+
+            document.getElementById('sunSign').textContent = sunSign;
+            document.getElementById('moonSign').textContent = moonSign;
+            document.getElementById('risingSign').textContent = risingSign;
+            document.getElementById('output').classList.add('show');
+
+            // Add personality descriptions
+            const personalityDiv = document.getElementById('personality');
+            personalityDiv.innerHTML = `
+                <div class="personality-item">
+                    <h3>Sun in ${sunSign}: Your Core Identity</h3>
+                    <p>${descriptions[sunSign]?.sun || 'Cosmic vibes incoming—your essence is a bold force of nature!'}</p>
+                </div>
+                <div class="personality-item">
+                    <h3>Moon in ${moonSign}: Your Emotional World</h3>
+                    <p>${descriptions[moonSign]?.moon || 'Lunar mysteries unfold—your inner tides flow with intuitive depth.'}</p>
+                </div>
+                <div class="personality-item">
+                    <h3>Rising in ${risingSign}: Your Outer Aura</h3>
+                    <p>${descriptions[risingSign]?.rising || 'Ascendant magic at play—your first impression sparkles with enigmatic charm.'}</p>
+                </div>
+            `;
+
+            // Add conclusion
+            const conclusionDiv = document.getElementById('conclusion');
+            conclusionDiv.innerHTML = `
+                <h3>Celestial Synthesis: Who You Are</h3>
+                <p>${generateConclusion(sunSign, moonSign, risingSign)}</p>
+            `;
+
+            document.getElementById('debug').innerHTML = `<p>Debug: Success! Your Sun is ${sunSign}. (Check console for more.)</p>`;
+            alert(`Stars aligned! Your Sun is ${sunSign}. Dive deeper into your personality insights and holistic self below.`);
+
+            console.log('Output updated!');
+        }
+
+        // Also attach to form submit as fallback
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('astroForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleSubmit();
+                });
+                console.log('Form event listener attached');
+            } else {
+                console.error('Form not found');
+            }
+        });
+    </script>
+
+
+</body></html>
